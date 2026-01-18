@@ -19,7 +19,7 @@
 - **グラフ描画**: Chart.js
 
 ### その他
-- **パッケージ管理**: Poetry
+- **パッケージ管理**: pip + venv
 - **開発サーバー**: Uvicorn
 - **フォーマッター**: Black
 - **Linter**: Ruff
@@ -90,7 +90,7 @@ work-life-time-tracker/
 
 ### 前提条件
 - Python 3.11以上
-- Poetryがインストール済み
+- pip（Pythonに付属）
 
 ### インストール手順
 
@@ -100,30 +100,44 @@ work-life-time-tracker/
    cd work-life-time-tracker
    ```
 
-2. **依存関係をインストール**
+2. **仮想環境を有効化**
    ```bash
-   poetry install
+   # Windows の場合
+   venv\Scripts\activate
+
+   # Linux/Mac の場合
+   source venv/bin/activate
    ```
 
-3. **仮想環境に入る**
+3. **依存関係をインストール**
    ```bash
-   poetry shell
+   pip install -r requirements.txt
    ```
+
+### 開発用パッケージのインストール（オプション）
+```bash
+pip install black ruff pytest
+```
+
+または、requirements.txtには既に含まれています。
 
 ## 起動方法
 
 ### 開発環境での起動
 
-```bash
-poetry run uvicorn app.main:app --reload
-```
+1. **仮想環境を有効化**
+   ```bash
+   # Windows の場合
+   venv\Scripts\activate
 
-または
+   # Linux/Mac の場合
+   source venv/bin/activate
+   ```
 
-```bash
-poetry shell
-uvicorn app.main:app --reload
-```
+2. **アプリケーションを起動**
+   ```bash
+   uvicorn app.main:app --reload
+   ```
 
 アプリケーションは `http://localhost:8000` で起動します。
 
@@ -242,33 +256,58 @@ GET /api/tags
 
 ### Formatting
 ```bash
-poetry run black app/
+black app/
 ```
 
 ### Linting
 ```bash
-poetry run ruff check app/
+ruff check app/
+```
+
+### 実行方法（仮想環境が有効な場合）
+```bash
+# 仮想環境を有効化してから実行
+venv\Scripts\activate  # Windows
+source venv/bin/activate  # Linux/Mac
+
+# ツールを実行
+black app/
+ruff check app/
 ```
 
 ## トラブルシューティング
 
 ### ポート8000が既に使用されている場合
 ```bash
-poetry run uvicorn app.main:app --reload --port 8001
+uvicorn app.main:app --reload --port 8001
 ```
 
 ### データベースをリセットしたい場合
 ```bash
 rm work_tracker.db
+# または Windows の場合
+del work_tracker.db
+
 # 次回起動時に自動的に再作成されます
-poetry run uvicorn app.main:app --reload
+uvicorn app.main:app --reload
 ```
 
 ### モジュールが見つからないエラー
 ```bash
+# 仮想環境が有効か確認
+# Windows
+venv\Scripts\activate
+
+# Linux/Mac
+source venv/bin/activate
+
 # 依存関係を再インストール
-poetry install
-poetry shell
+pip install -r requirements.txt
+```
+
+### 仮想環境から抜ける場合
+```bash
+deactivate
 ```
 
 ## ブラウザ対応
