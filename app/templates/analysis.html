@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}分析 - Work Life Time Tracker{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Period Filter -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold mb-4">分析</h2>
+        <div class="flex gap-4 flex-wrap">
+            <button class="period-btn px-4 py-2 rounded-lg bg-blue-500 text-white" data-period="all">
+                すべて
+            </button>
+            <button class="period-btn px-4 py-2 rounded-lg bg-gray-300 text-gray-700" data-period="today">
+                今日
+            </button>
+            <button class="period-btn px-4 py-2 rounded-lg bg-gray-300 text-gray-700" data-period="week">
+                今週
+            </button>
+            <button class="period-btn px-4 py-2 rounded-lg bg-gray-300 text-gray-700" data-period="month">
+                今月
+            </button>
+        </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-gray-600 text-sm font-semibold uppercase mb-2">総作業時間</h3>
+            <p class="text-3xl font-bold text-blue-600" id="totalDuration">0時間0分</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-gray-600 text-sm font-semibold uppercase mb-2">作業記録数</h3>
+            <p class="text-3xl font-bold text-green-600" id="recordCount">0</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-gray-600 text-sm font-semibold uppercase mb-2">平均作業時間</h3>
+            <p class="text-3xl font-bold text-purple-600" id="avgDuration">0分</p>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Tag Distribution Chart -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold mb-4">タグ別作業時間</h3>
+            <div class="relative h-80">
+                <canvas id="tagChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Daily Distribution Chart -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold mb-4">日別作業時間</h3>
+            <div class="relative h-80">
+                <canvas id="dateChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Table -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-xl font-bold mb-4">タグ別詳細</h3>
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">タグ</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">合計時間</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">割合</th>
+                    </tr>
+                </thead>
+                <tbody id="tagTableBody" class="divide-y divide-gray-200">
+                    <!-- Tag details will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/analysis.js"></script>
+{% endblock %}

@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "work-life-time-tracker"
+version = "0.1.0"
+description = "作業時間を計測し、作業内容をタグ付きで記録・可視化できる Web アプリ"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.104.1"
+uvicorn = "^0.24.0"
+sqlalchemy = "^2.0.23"
+alembic = "^1.13.0"
+jinja2 = "^3.1.2"
+python-multipart = "^0.0.6"
+pytz = "^2024.1"
+pydantic = "^2.5.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.12.0"
+ruff = "^0.1.8"
+pytest = "^7.4.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
